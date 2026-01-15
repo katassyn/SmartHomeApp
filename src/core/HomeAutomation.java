@@ -8,19 +8,12 @@ import model.RoomGroup;
 
 import java.util.List;
 
-/**
- * HomeAutomation - zgodny z SRP i DIP
- * Jedyna odpowiedzialność: automatyzacja (reakcja na zdarzenia z czujników)
- * Zależności są wstrzykiwane przez konstruktor (Dependency Injection)
- * Używa CommandFactory zamiast bezpośrednio tworzyć komendy (DIP)
- */
 public class HomeAutomation implements Observer {
     private final SmartHomeHub hub;
     private final CommandFactory commandFactory;
 
-    /**
-     * Wstrzykiwanie zależności przez konstruktor
-     */
+    // Wstrzykiwanie zależności przez konstruktor
+
     public HomeAutomation(SmartHomeHub hub, CommandFactory commandFactory) {
         this.hub = hub;
         this.commandFactory = commandFactory;

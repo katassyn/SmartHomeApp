@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-/**
- * DeviceFactory - zgodny z OCP (Open/Closed Principle)
- * Otwarty na rozszerzenia (nowe urządzenia), zamknięty na modyfikacje
- */
 public class DeviceFactory {
     private final Map<String, Function<String, SmartComponent>> deviceRegistry = new HashMap<>();
 
@@ -21,11 +17,8 @@ public class DeviceFactory {
         registerDevice("thermostat", Thermostat::new);
     }
 
-    /**
-     * Rejestracja nowego typu urządzenia bez modyfikacji kodu Factory
-     * @param type typ urządzenia
-     * @param constructor konstruktor urządzenia
-     */
+     // Rejestracja nowego typu urządzenia bez modyfikacji kodu Factory
+
     public void registerDevice(String type, Function<String, SmartComponent> constructor) {
         deviceRegistry.put(type.toLowerCase(), constructor);
     }

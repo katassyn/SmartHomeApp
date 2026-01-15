@@ -9,13 +9,6 @@ import interfaces.Switchable;
 import model.RoomGroup;
 import sensors.MotionSensor;
 
-/**
- * SmartHomeApp - zaktualizowana aplikacja zgodna z SOLID
- * - Używa CommandFactory do tworzenia komend (DIP)
- * - Używa HomeAutomation jako Observer zamiast Hub (SRP)
- * - Wszystkie zależności są wstrzykiwane przez konstruktory (DI)
- * - DeviceFactory jest instancją, nie klasą statyczną (OCP)
- */
 public class SmartHomeApp {
     public static void main(String[] args) {
         System.out.println("SmartHomeApp initializing...");
@@ -61,10 +54,10 @@ public class SmartHomeApp {
 
         hub.showDashboard();
 
-        //6. Symulacja czujnika - HomeAutomation jako Observer, nie Hub
+        //6. Symulacja czujnika - HomeAutomation jako Observer
         System.out.println("Symulacja aktywacji czujnika:");
         MotionSensor motionSensor = new MotionSensor("Czujnik Ruchu Salon");
-        motionSensor.addObserver(automation);  // automation zamiast hub!
+        motionSensor.addObserver(automation);  // automation
 
         //wywolanie zdarzenia
         motionSensor.detectMotion();

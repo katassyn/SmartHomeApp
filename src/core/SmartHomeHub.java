@@ -6,11 +6,6 @@ import model.RoomGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * SmartHomeHub - zgodny z SRP (Single Responsibility Principle)
- * Jedyna odpowiedzialność: zarządzanie pokojami i wykonywanie komend
- * Automatyzacja została przeniesiona do klasy HomeAutomation
- */
 public class SmartHomeHub {
     private List<RoomGroup> rooms = new ArrayList<>();
 
@@ -22,9 +17,8 @@ public class SmartHomeHub {
         command.execute();
     }
 
-    /**
-     * Dostęp do listy pokoi dla innych komponentów (np. HomeAutomation)
-     */
+     // Dostęp do listy pokoi dla innych komponentów (np. HomeAutomation)
+
     public List<RoomGroup> getRooms() {
         return rooms;
     }
