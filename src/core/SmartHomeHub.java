@@ -1,16 +1,17 @@
 package core;
 
-import commands.TurnOnCommand;
 import interfaces.Command;
-import interfaces.Observer;
-import interfaces.SmartComponent;
-import interfaces.Switchable;
 import model.RoomGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmartHomeHub implements Observer {
+/**
+ * SmartHomeHub - zgodny z SRP (Single Responsibility Principle)
+ * Jedyna odpowiedzialność: zarządzanie pokojami i wykonywanie komend
+ * Automatyzacja została przeniesiona do klasy HomeAutomation
+ */
+public class SmartHomeHub {
     private List<RoomGroup> rooms = new ArrayList<>();
 
     public void addRoom(RoomGroup room) {
@@ -21,21 +22,11 @@ public class SmartHomeHub implements Observer {
         command.execute();
     }
 
-    @Override
-    public void update(String sensorName, boolean state) {
-        if(state) {
-            System.out.println("[HUB]: Signal received from " + sensorName + ". starting the welcome procedure.");
-            //Automatyzacja: wlaczamy wszystko w salonie
-            for(RoomGroup room : rooms) {
-                if(room.getName().equals("Salon")) {
-                    for(SmartComponent component : room.getComponents()) {
-                        if(component instanceof Switchable) {
-                            new TurnOnCommand((Switchable) component).execute();
-                        }
-                    }
-                }
-            }
-        }
+    /**
+     * Dostęp do listy pokoi dla innych komponentów (np. HomeAutomation)
+     */
+    public List<RoomGroup> getRooms() {
+        return rooms;
     }
 
     public void showDashboard(){
