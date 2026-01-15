@@ -49,6 +49,7 @@ public class SmartHomeApp {
             hub.executeCommand(setTemp);
         }
 
+
         hub.showDashboard();
 
         //5. Symulacja czujnika
