@@ -30,6 +30,7 @@ public class SmartHomeApp {
 
         RoomGroup sypialnia = new RoomGroup("Sypialnia");
         sypialnia.addComponent(deviceFactory.createDevice("light", "Lampka Nocna"));
+        sypialnia.addComponent(deviceFactory.createDevice("thermostat", "Ogrzewanie Sypialnia"));
 
         hub.addRoom(salon);
         hub.addRoom(sypialnia);
@@ -54,13 +55,18 @@ public class SmartHomeApp {
 
         hub.showDashboard();
 
-        //6. Symulacja czujnika - HomeAutomation jako Observer
-        System.out.println("Symulacja aktywacji czujnika:");
-        MotionSensor motionSensor = new MotionSensor("Czujnik Ruchu Salon");
-        motionSensor.addObserver(automation);  // automation
+        //6. Symulacja czujników - HomeAutomation jako Observer
+        System.out.println("Symulacja aktywacji czujników:");
+        MotionSensor motionSensorSalon = new MotionSensor("Czujnik Ruchu Salon");
+        motionSensorSalon.addObserver(automation);
 
-        //wywolanie zdarzenia
-        motionSensor.detectMotion();
+        MotionSensor motionSensorSypialnia = new MotionSensor("Czujnik Ruchu Sypialnia");
+        motionSensorSypialnia.addObserver(automation);
+
+        //wywolanie zdarzeń
+        motionSensorSalon.detectMotion();
+        System.out.println();
+        motionSensorSypialnia.detectMotion();
 
         //wyniki koncowe
         hub.showDashboard();

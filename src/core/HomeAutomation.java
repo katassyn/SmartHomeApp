@@ -22,17 +22,26 @@ public class HomeAutomation implements Observer {
     @Override
     public void update(String sensorName, boolean state) {
         if(state) {
-            System.out.println("[AUTOMATION]: Signal received from " + sensorName + ". starting the welcome procedure.");
+            System.out.println("[AUTOMATION]: Sygnał z " + sensorName + ".");
 
-            // Automatyzacja: włączamy wszystko w salonie
+            // Prosta logika mapowania: Jeśli czujnik ma w nazwie "Sypialnia", celujemy w pokój "Sypialnia"
+            String targetRoomName = "";
+            if (sensorName.contains("Salon")) {
+                targetRoomName = "Salon";
+            } else if (sensorName.contains("Sypialnia")) {
+                targetRoomName = "Sypialnia";
+            }
+
+            // Iterujemy po pokojach i włączamy światła w tym właściwym
             List<RoomGroup> rooms = hub.getRooms();
             for(RoomGroup room : rooms) {
-                if(room.getName().equals("Salon")) {
+                // Porównujemy nazwę pokoju z naszym celem
+                if(room.getName().equals(targetRoomName)) {
+                    System.out.println(" -> Uruchamiam scenariusz dla pokoju: " + targetRoomName);
                     for(SmartComponent component : room.getComponents()) {
                         if(component instanceof Switchable) {
-                            // Używamy CommandFactory zamiast bezpośrednio tworzyć komendy
-                            Command turnOnCommand = commandFactory.createTurnOnCommand((Switchable) component);
-                            hub.executeCommand(turnOnCommand);
+                            Command turnOn = commandFactory.createTurnOnCommand((Switchable) component);
+                            hub.executeCommand(turnOn);
                         }
                     }
                 }
