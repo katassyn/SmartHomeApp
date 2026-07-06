@@ -24,7 +24,7 @@ public class HomeAutomation implements Observer {
         if(state) {
             System.out.println("[AUTOMATION]: Sygnał z " + sensorName + ".");
 
-            // Prosta logika mapowania po nazwie "Sypialnia", celujemy w pokój "Sypialnia"
+            // Prosta logika mapowania: Jeśli czujnik ma w nazwie "Sypialnia", celujemy w pokój "Sypialnia"
             String targetRoomName = "";
             if (sensorName.contains("Salon")) {
                 targetRoomName = "Salon";
